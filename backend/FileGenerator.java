@@ -3,9 +3,9 @@ import java.io.IOException;
 
 public class FileGenerator {
 
-    public static void main(String[] args) {
+    public static void generateFile(String jsonLocation) {
 
-        readJSON readJson = new readJSON("../jsonFolder/ex1.json");
+        readJSON readJson = new readJSON(jsonLocation);
 
         if(readJson.getAction() == "Create"){
             

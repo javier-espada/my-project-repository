@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.IOException;
-import readJSon.readJSON;
 
 public class FileGenerator {
 
@@ -11,6 +10,7 @@ public class FileGenerator {
         if(readJson.getAction() == "Create"){
             
             fileCreate(readJson.getFileName());
+            fileWrite(readJSon.getFileName(),readJSon.getContent());
 
         } else if(readJson.getAction() == "Delete"){
             
@@ -49,4 +49,14 @@ public class FileGenerator {
         }
     }
     
+    public void fileWrite(String fileName, String content){
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+            writer.write(content);
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace(); // Print error details
+        }
+    }
 }

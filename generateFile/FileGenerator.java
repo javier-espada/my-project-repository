@@ -1,11 +1,12 @@
 import java.io.File;
 import java.io.IOException;
-import package.readJSON.*;
+import readJSon.readJSON;
+
 public class FileGenerator {
 
     public static void main(String[] args) {
 
-        readJSON readJson = new readJSON("");
+        readJSON readJson = new readJSON("../jsonFolder/ex1.json");
 
         if(readJson.getAction() == "Create"){
             
@@ -13,12 +14,12 @@ public class FileGenerator {
 
         } else if(readJson.getAction() == "Delete"){
             
-            fileDelete(readJSon.getFileName())
+            fileDelete(readJSon.getFileName());
         }
     }
 
     // fileCreate will get a fileName and create a file with that name
-    public fileCreate(String fileName){
+    public void fileCreate(String fileName){
         try {
             File file = new File(filename); // Create File object
             if (file.createNewFile()) {           // Try to create the file
@@ -34,7 +35,7 @@ public class FileGenerator {
 
     // fileDelete will get a fileName and delete a file
 
-    public fileDelete(String fileName){
+    public void fileDelete(String fileName){
         try {
             File file = new File(filename); // Create File object
             if (file.delete()) {           // Try to delete the file

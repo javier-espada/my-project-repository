@@ -15,6 +15,13 @@ public class FileGenerator {
         } else if(readJson.getAction() == "Delete"){
             
             fileDelete(readJSon.getFileName());
+
+        } else if(readJson.getAction() == "Modify"){
+            
+            fileDelete(readJSon.getFileName());
+            fileCreate(readJson.getFileName());
+            fileWrite(readJSon.getFileName(),readJSon.getContent());
+
         }
     }
 

@@ -9,7 +9,7 @@ public class readJSON {
     private String Content;
 
     public readJSON(FileReader file){               // Constructor where the file is readed
-        Object o new = JSONParser().parse(file)
+        Object o = new JSONParser().parse(file);
         this.j = (JSONObject) j;
     }
 

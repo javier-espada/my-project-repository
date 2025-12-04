@@ -1,38 +1,23 @@
 import { useState } from "react";
+import { createJsonFile } from "../utils/api";
+
 
 function AddNote({ onAdd, onClose }) {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
 
-  const downloadJsonFile = (filename, content) => {
-    const data = [
-      {
-        Action: "Create",
-        Filename: filename,
-        Content: content,
-      },
-    ];
-
-    const blob = new Blob([JSON.stringify(data, null, 2)], {
-      type: "application/json",
-    });
-
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `${filename.replace(/\s+/g, "_")}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
+  const saveJsonToResources = async (filename, content) => {
+    await createJsonFile("Create", filename, content);
   };
 
-  const handleAdd = () => {
+  const handleAdd = async () => {
     if (!text.trim() || !title.trim()) return;
 
     // Save inside app state
     onAdd(text, title);
 
     // ALSO generate JSON file and download it
-    downloadJsonFile(title, text);
+    await saveJsonToResources(title, text);
 
     setText("");
     setTitle("");

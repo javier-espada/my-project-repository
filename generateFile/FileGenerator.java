@@ -1,9 +1,12 @@
 import java.io.File;
 import java.io.IOException;
-
+import package.readJSON.*;
 public class FileGenerator {
 
     public static void main(String[] args) {
+
+        readJSON readJson = new readJSON("");
+
         if(readJson.getAction() == "Create"){
             
             fileCreate(readJson.getFileName());

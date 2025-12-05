@@ -3,6 +3,7 @@ import AddNote from "./components/AddNote";
 import NoteList from "./components/NoteList";
 import { loadNotes, loadPendingActions, saveNotes } from "./utils/storage";
 import "./styles.css";
+import { createJsonFile } from "./utils/api";
 
 function App() {
   const [notes, setNotes] = useState([]);
@@ -48,34 +49,17 @@ function App() {
   };
 
   // Helper: download Delete JSON file
-  const downloadDeleteJson = (note) => {
-    const data = [
-      {
-        Action: "Delete",
-        Filename: note.Filename,
-        Content: note.Content,
-      },
-    ];
-
-    const blob = new Blob([JSON.stringify(data, null, 2)], {
-      type: "application/json",
-    });
-
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `${note.Filename.replace(/\s+/g, "_")}_DELETE.json`;
-    a.click();
-    URL.revokeObjectURL(url);
+  const saveDeleteJson = async (note) => {
+    await createJsonFile("Delete", note.Filename, note.Content);
   };
 
   // Delete a note
-  const deleteNote = (id) => {
+  const deleteNote = async (id) => {
     const noteToDelete = notes.find((n) => n.id === id);
     if (!noteToDelete) return;
 
     // Download the DELETE file
-    downloadDeleteJson(noteToDelete);
+    await saveDeleteJson(noteToDelete);
 
     // Remove from UI
     setNotes(notes.filter((n) => n.id !== id));

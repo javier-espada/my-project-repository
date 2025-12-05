@@ -1,36 +1,40 @@
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class FileGenerator {
 
-    public static void generateFile(String jsonLocation) {
-
-        readJSON readJson = new readJSON(jsonLocation);
+    public static void generateFile(String jsonLocation) throws FileNotFoundException {
+        FileReader jsonFile = new FileReader(jsonLocation);
+        readJSON readJson = new readJSON(jsonFile);
 
         if(readJson.getAction() == "Create"){
             
-            fileCreate(readJson.getFileName());
-            fileWrite(readJSon.getFileName(),readJSon.getContent());
+            fileCreate(readJson.getFilename());
+            fileWrite(readJson.getFilename(),readJson.getContent());
 
         } else if(readJson.getAction() == "Delete"){
             
-            fileDelete(readJSon.getFileName());
+            fileDelete(readJson.getFilename());
 
         } else if(readJson.getAction() == "Modify"){
             
-            fileDelete(readJSon.getFileName());
-            fileCreate(readJson.getFileName());
-            fileWrite(readJSon.getFileName(),readJSon.getContent());
+            fileDelete(readJson.getFilename());
+            fileCreate(readJson.getFilename());
+            fileWrite(readJson.getFilename(),readJson.getContent());
 
         }
     }
 
     // fileCreate will get a fileName and create a file with that name
-    public void fileCreate(String fileName){
+    public static void fileCreate(String fileName){
         try {
-            File file = new File(filename); // Create File object
+            File file = new File(fileName); // Create File object
             if (file.createNewFile()) {           // Try to create the file
-                System.out.println("File created: " + myObj.getName());
+                System.out.println("File created: " + file.getName());
             } else {
                 System.out.println("File already exists.");
             }
@@ -42,21 +46,17 @@ public class FileGenerator {
 
     // fileDelete will get a fileName and delete a file
 
-    public void fileDelete(String fileName){
-        try {
-            File file = new File(filename); // Create File object
-            if (file.delete()) {           // Try to delete the file
-                System.out.println("File deleted: " + file.getName());
-            } else {
-                System.out.println("File doesn't exist.");
-            }
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace(); // Print error details
+    public static void fileDelete(String fileName){
+
+        File file = new File(fileName); // Create File object
+        if (file.delete()) {           // Try to delete the file
+            System.out.println("File deleted: " + file.getName());
+        } else {
+            System.out.println("File doesn't exist.");
         }
     }
     
-    public void fileWrite(String fileName, String content){
+    public static void fileWrite(String fileName, String content){
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
             writer.write(content);

@@ -2,7 +2,7 @@ import java.nio.file.*;
 
 class FileWatcher{
     public static void main(String[] args) {
-        path = "" //Por modificar
+        path = "../frontend/src/Resources" //Por modificar
 
         WatchService watchService= FileSystems.getDefault().newWatchService();
 
